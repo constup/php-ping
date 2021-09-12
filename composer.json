@@ -1,0 +1,19 @@
+{
+    "name": "constup/php-ping",
+    "description": "Ping library for PHP.",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Constup\\PhpPing\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Constup",
+            "email": "16638173+constup@users.noreply.github.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
