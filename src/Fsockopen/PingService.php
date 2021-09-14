@@ -4,8 +4,7 @@ declare(strict_types = 1);
 
 namespace Constup\PhpPing\Fsockopen;
 
-use Constup\PhpPing\Fsockopen\ResultData\ResultData;
-use Constup\PhpPing\Fsockopen\ResultData\ResultDataWithLatency;
+use Constup\PhpPing\ResultData\BasicResultData;
 
 class PingService
 {
@@ -31,46 +30,19 @@ class PingService
      * @param int        $port
      * @param float|null $timeout
      *
-     * @return ResultData
+     * @return BasicResultData
      */
     public function pingResultWithErrorDescription(
         string $host,
         int $port = 80,
         ?float $timeout = null
-    ): ResultData {
+    ): BasicResultData {
         $f = @fsockopen($host, $port, $errorCode, $errorMessage, $timeout);
 
         if ($f === false) {
-            $result = new ResultData(ResultData::STATUS_ERROR, $errorCode, $errorMessage);
+            $result = new BasicResultData(BasicResultData::STATUS_ERROR, $errorCode, $errorMessage);
         } else {
-            $result = new ResultData(ResultData::STATUS_OK, null, null);
-        }
-
-        return $result;
-    }
-
-    /**
-     * @param string     $host
-     * @param int        $port
-     * @param float|null $timeout
-     *
-     * @return ResultDataWithLatency
-     */
-    public function pingResultWithLatency(
-        string $host,
-        int $port = 80,
-        ?float $timeout = null
-    ): ResultDataWithLatency {
-        $start = microtime(true);
-        $f = @fsockopen($host, $port, $errorCode, $errorMessage, $timeout);
-
-        if ($f === false) {
-            $result = new ResultDataWithLatency(ResultDataWithLatency::STATUS_ERROR, null, $errorCode, $errorMessage);
-        } else {
-            $latency = microtime(true) - $start;
-            $latency = round($latency * 1000, 4);
-
-            $result = new ResultDataWithLatency(ResultDataWithLatency::STATUS_OK, $latency, null, null);
+            $result = new BasicResultData(BasicResultData::STATUS_OK, null, null);
         }
 
         return $result;

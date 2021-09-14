@@ -2,13 +2,12 @@
 
 declare(strict_types = 1);
 
-namespace Constup\PhpPing\Fsockopen\ResultData;
+namespace Constup\PhpPing\ResultData;
 
-class ResultData
+class BasicResultData
 {
     const STATUS_OK = 'ok';
     const STATUS_ERROR = 'error';
-
     private string $status;
     private ?string $errorCode;
     private ?string $errorMessage;
