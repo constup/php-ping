@@ -6,6 +6,24 @@ namespace Constup\PhpPing\Exec\HelperServices;
 
 class CommandBuilder
 {
+    private OSResolver $osResolver;
+
+    /**
+     * @param OSResolver $osResolver
+     */
+    public function __construct(OSResolver $osResolver)
+    {
+        $this->osResolver = $osResolver;
+    }
+
+    /**
+     * @return OSResolver
+     */
+    public function getOsResolver(): OSResolver
+    {
+        return $this->osResolver;
+    }
+
     /**
      * @param string   $host
      * @param int      $tries
@@ -20,15 +38,16 @@ class CommandBuilder
         ?int $ttl,
         ?int $timeout
     ): string {
-        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-            $result = $this->buildCommandWindows($host, $tries, $ttl, $timeout);
-        } elseif (strtoupper(PHP_OS) === 'DARWIN') {
-            $result = $this->buildCommandMacOS($host, $tries, $ttl, $timeout);
-        } else {
-            $result = $this->buildCommandLinux($host, $tries, $ttl, $timeout);
-        }
+        $os = $this->getOsResolver()->getOS();
 
-        return $result;
+        switch ($os) {
+            case OSResolver::OS_WINDOWS:
+                return $this->buildCommandWindows($host, $tries, $ttl, $timeout);
+            case OSResolver::OS_MAC:
+                return $this->buildCommandMacOS($host, $tries, $ttl, $timeout);
+            default:
+                return $this->buildCommandLinux($host, $tries, $ttl, $timeout);
+        }
     }
 
     /**
@@ -45,7 +64,7 @@ class CommandBuilder
         ?int $ttl,
         ?int $timeout
     ): string {
-        $result = 'ping -n' . $tries;
+        $result = 'ping -n ' . $tries;
         if (!is_null($ttl)) {
             $result .= ' -i ' . $ttl;
         }
@@ -77,7 +96,7 @@ class CommandBuilder
             $result .= ' -m ' . $ttl;
         }
         if (!is_null($timeout)) {
-            $result .= ' -t' . $timeout;
+            $result .= ' -t ' . $timeout;
         }
 
         $result .= ' ' . $host;

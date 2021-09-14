@@ -4,8 +4,8 @@ declare(strict_types = 1);
 
 namespace Constup\PhpPing\Exec;
 
-use Constup\PhpPing\Exec\HelperServices\CommandBuilder;
-use Constup\PhpPing\Exec\HelperServices\ResultProcessor;
+use Constup\PhpPing\Test\Exec\HelperServices\CommandBuilder;
+use Constup\PhpPing\Test\Exec\HelperServices\ResultProcessor;
 use Constup\PhpPing\ResultData\BasicResultData;
 
 class PingService
