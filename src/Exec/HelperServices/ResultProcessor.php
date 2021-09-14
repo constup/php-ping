@@ -13,9 +13,12 @@ class ResultProcessor
      */
     public function extractPacketLossPercentage(string $execOutput): string
     {
-        $regex = '/\((.*?)\)/m';
+        // This will search for the first set of () brackets and extract the contents of it.
+        // For now, this is good enough, but if the format of the ping command output changes, this regex needs
+        // to be adapted.
+        $regex = '/(?<=\().+?(?=\))/m';
         preg_match_all($regex, $execOutput, $matches, PREG_SET_ORDER, 0);
 
-        return $matches[0];
+        return $matches[0][0];
     }
 }

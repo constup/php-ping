@@ -7,7 +7,7 @@ namespace Constup\PhpPing\Test\Exec\HelperServices\DataProviderTrait;
 use Constup\PhpPing\Exec\HelperServices\OSResolver;
 use Faker\Factory;
 
-trait CommandBuilderDataProviderTrait
+trait CommandBuilderTrait
 {
     public function buildCommand_HappyFlow(): array
     {

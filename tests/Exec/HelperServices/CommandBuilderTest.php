@@ -6,12 +6,12 @@ namespace Constup\PhpPing\Test\Exec\HelperServices;
 
 use Constup\PhpPing\Exec\HelperServices\CommandBuilder;
 use Constup\PhpPing\Exec\HelperServices\OSResolver;
-use Constup\PhpPing\Test\Exec\HelperServices\DataProviderTrait\CommandBuilderDataProviderTrait;
+use Constup\PhpPing\Test\Exec\HelperServices\DataProviderTrait\CommandBuilderTrait;
 use PHPUnit\Framework\TestCase;
 
 class CommandBuilderTest extends TestCase
 {
-    use CommandBuilderDataProviderTrait;
+    use CommandBuilderTrait;
 
     /**
      * @param string $os
