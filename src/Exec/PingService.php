@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Constup\PhpPing\Exec;
 
 use Constup\PhpPing\Exec\HelperServices\CommandBuilder;
+use Constup\PhpPing\Exec\HelperServices\ExecService;
 use Constup\PhpPing\Exec\HelperServices\ResultProcessor;
 use Constup\PhpPing\ResultData\BasicResultData;
 
@@ -13,15 +14,18 @@ class PingService
     const PACKET_LOSS_TOTAL = '100% loss';
     private CommandBuilder $commandBuilder;
     private ResultProcessor $resultProcessor;
+    private ExecService $execService;
 
     /**
      * @param CommandBuilder  $commandBuilder
      * @param ResultProcessor $resultProcessor
+     * @param ExecService     $execService
      */
-    public function __construct(CommandBuilder $commandBuilder, ResultProcessor $resultProcessor)
+    public function __construct(CommandBuilder $commandBuilder, ResultProcessor $resultProcessor, ExecService $execService)
     {
         $this->commandBuilder = $commandBuilder;
         $this->resultProcessor = $resultProcessor;
+        $this->execService = $execService;
     }
 
     /**
@@ -41,6 +45,14 @@ class PingService
     }
 
     /**
+     * @return ExecService
+     */
+    public function getExecService(): ExecService
+    {
+        return $this->execService;
+    }
+
+    /**
      * @param string   $host
      * @param int      $tries
      * @param int|null $ttl
@@ -55,13 +67,17 @@ class PingService
         ?int $timeout
     ): bool {
         $commandString = $this->getCommandBuilder()->buildCommand($host, $tries, $ttl, $timeout);
-        $commandResult = exec($commandString, $output, $resultCode);
+        $commandResult = $this->getExecService()->exec($commandString);
 
-        if ($commandResult === false || empty($output) || $resultCode !== 0) {
+        if (
+            $commandResult->getExecutionResult() === false
+            || empty($commandResult->getOutput())
+            || $commandResult->getResultCode() !== 0
+        ) {
             return false;
         }
 
-        $packetLoss = $this->getResultProcessor()->extractPacketLossPercentage($output);
+        $packetLoss = $this->getResultProcessor()->extractPacketLossPercentage(implode('', $commandResult->getOutput()));
         if ($packetLoss === self::PACKET_LOSS_TOTAL) {
             return false;
         }
