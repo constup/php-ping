@@ -20,8 +20,8 @@ trait PingServiceTrait
                 'host' => $host = $faker->unique()->lexify(),
                 'tries' => $tries = $faker->unique->randomNumber(2),
                 'ttl' => $ttl = $faker->unique->randomNumber(2),
-                'timeout' => $timeout = $faker->unique->randomNumber(6),
-                'commandString' => 'ping -n -c ' . $tries . ' -t ' . $ttl . ' -W ' . $timeout . ' ' . $host . ' 2>$1',
+                'timeoutSeconds' => $timeoutSeconds = $faker->unique->randomNumber(6),
+                'commandString' => 'ping -n -c ' . $tries . ' -t ' . $ttl . ' -W ' . $timeoutSeconds . ' ' . $host . ' 2>$1',
                 'commandResult' => new ExecResultData(
                     $executionResult = '    Minimum = 7ms, Maximum = 8ms, Average = 7ms',
                     $output = [
@@ -45,8 +45,8 @@ trait PingServiceTrait
                 'host' => $host = $faker->unique()->lexify(),
                 'tries' => $tries = $faker->unique->randomNumber(2),
                 'ttl' => $ttl = $faker->unique->randomNumber(2),
-                'timeout' => $timeout = $faker->unique->randomNumber(6),
-                'commandString' => 'ping -n -c ' . $tries . ' -t ' . $ttl . ' -W ' . $timeout . ' ' . $host . ' 2>$1',
+                'timeoutSeconds' => $timeoutSeconds = $faker->unique->randomNumber(6),
+                'commandString' => 'ping -n -c ' . $tries . ' -t ' . $ttl . ' -W ' . $timeoutSeconds . ' ' . $host . ' 2>$1',
                 'commandResult' => new ExecResultData(
                     $executionResult = '    Minimum = 7ms, Maximum = 8ms, Average = 7ms',
                     $output = [
@@ -79,8 +79,8 @@ trait PingServiceTrait
                 'host' => $host = $faker->unique()->lexify(),
                 'tries' => $tries = $faker->unique->randomNumber(2),
                 'ttl' => $ttl = $faker->unique->randomNumber(2),
-                'timeout' => $timeout = $faker->unique->randomNumber(6),
-                'commandString' => 'ping -n -c ' . $tries . ' -t ' . $ttl . ' -W ' . $timeout . ' ' . $host . ' 2>$1',
+                'timeoutSeconds' => $timeoutSeconds = $faker->unique->randomNumber(6),
+                'commandString' => 'ping -n -c ' . $tries . ' -t ' . $ttl . ' -W ' . $timeoutSeconds . ' ' . $host . ' 2>$1',
                 'commandResult' => new ExecResultData(
                     $executionResult = false,
                     $output = [
@@ -103,8 +103,8 @@ trait PingServiceTrait
                 'host' => $host = $faker->unique()->lexify(),
                 'tries' => $tries = $faker->unique->randomNumber(2),
                 'ttl' => $ttl = $faker->unique->randomNumber(2),
-                'timeout' => $timeout = $faker->unique->randomNumber(6),
-                'commandString' => 'ping -n -c ' . $tries . ' -t ' . $ttl . ' -W ' . $timeout . ' ' . $host . ' 2>$1',
+                'timeoutSeconds' => $timeoutSeconds = $faker->unique->randomNumber(6),
+                'commandString' => 'ping -n -c ' . $tries . ' -t ' . $ttl . ' -W ' . $timeoutSeconds . ' ' . $host . ' 2>$1',
                 'commandResult' => new ExecResultData(
                     $executionResult = '    Minimum = 7ms, Maximum = 8ms, Average = 7ms',
                     $output = [],
@@ -116,8 +116,8 @@ trait PingServiceTrait
                 'host' => $host = $faker->unique()->lexify(),
                 'tries' => $tries = $faker->unique->randomNumber(2),
                 'ttl' => $ttl = $faker->unique->randomNumber(2),
-                'timeout' => $timeout = $faker->unique->randomNumber(6),
-                'commandString' => 'ping -n -c ' . $tries . ' -t ' . $ttl . ' -W ' . $timeout . ' ' . $host . ' 2>$1',
+                'timeoutSeconds' => $timeoutSeconds = $faker->unique->randomNumber(6),
+                'commandString' => 'ping -n -c ' . $tries . ' -t ' . $ttl . ' -W ' . $timeoutSeconds . ' ' . $host . ' 2>$1',
                 'commandResult' => new ExecResultData(
                     $executionResult = '    Minimum = 7ms, Maximum = 8ms, Average = 7ms',
                     $output = [

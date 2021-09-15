@@ -54,7 +54,7 @@ class CommandBuilder
      * @param string   $host
      * @param int      $tries
      * @param int|null $ttl
-     * @param int|null $timeout
+     * @param int|null $timeoutSeconds
      *
      * @return string
      */
@@ -62,14 +62,14 @@ class CommandBuilder
         string $host,
         int $tries,
         ?int $ttl,
-        ?int $timeout
+        ?int $timeoutSeconds
     ): string {
         $result = 'ping -n ' . $tries;
         if (!is_null($ttl)) {
             $result .= ' -i ' . $ttl;
         }
-        if (!is_null($timeout)) {
-            $result .= ' -w ' . ($timeout * 1000);
+        if (!is_null($timeoutSeconds)) {
+            $result .= ' -w ' . ($timeoutSeconds * 1000);
         }
 
         $result .= ' ' . $host;
@@ -81,7 +81,7 @@ class CommandBuilder
      * @param string   $host
      * @param int      $tries
      * @param int|null $ttl
-     * @param int|null $timeout
+     * @param int|null $timeoutSeconds
      *
      * @return string
      */
@@ -89,14 +89,14 @@ class CommandBuilder
         string $host,
         int $tries,
         ?int $ttl,
-        ?int $timeout
+        ?int $timeoutSeconds
     ): string {
         $result = 'ping -n -c ' . $tries;
         if (!is_null($ttl)) {
             $result .= ' -m ' . $ttl;
         }
-        if (!is_null($timeout)) {
-            $result .= ' -t ' . $timeout;
+        if (!is_null($timeoutSeconds)) {
+            $result .= ' -t ' . $timeoutSeconds;
         }
 
         $result .= ' ' . $host;
@@ -108,7 +108,7 @@ class CommandBuilder
      * @param string   $host
      * @param int      $tries
      * @param int|null $ttl
-     * @param int|null $timeout
+     * @param int|null $timeoutSeconds
      *
      * @return string
      */
@@ -116,17 +116,17 @@ class CommandBuilder
         string $host,
         int $tries,
         ?int $ttl,
-        ?int $timeout
+        ?int $timeoutSeconds
     ): string {
-        $result = 'ping -n -c ' . $tries;
+        $result = 'ping -c ' . $tries;
         if (!is_null($ttl)) {
             $result .= ' -t ' . $ttl;
         }
-        if (!is_null($timeout)) {
-            $result .= ' -W ' . $timeout;
+        if (!is_null($timeoutSeconds)) {
+            $result .= ' -W ' . $timeoutSeconds;
         }
 
-        $result .= ' ' . $host . ' 2>$1';
+        $result .= ' ' . $host;
 
         return $result;
     }

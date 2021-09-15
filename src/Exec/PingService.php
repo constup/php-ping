@@ -56,7 +56,7 @@ class PingService
      * @param string   $host
      * @param int      $tries
      * @param int|null $ttl
-     * @param int|null $timeout
+     * @param int|null $timeoutSeconds
      *
      * @return bool
      */
@@ -64,9 +64,9 @@ class PingService
         string $host,
         int $tries,
         ?int $ttl,
-        ?int $timeout
+        ?int $timeoutSeconds
     ): bool {
-        $commandString = $this->getCommandBuilder()->buildCommand($host, $tries, $ttl, $timeout);
+        $commandString = $this->getCommandBuilder()->buildCommand($host, $tries, $ttl, $timeoutSeconds);
         $commandResult = $this->getExecService()->exec($commandString);
 
         if (
@@ -89,7 +89,7 @@ class PingService
      * @param string   $host
      * @param int      $tries
      * @param int|null $ttl
-     * @param int|null $timeout
+     * @param int|null $timeoutSeconds
      *
      * @return BasicResultData
      */
@@ -97,9 +97,9 @@ class PingService
         string $host,
         int $tries,
         ?int $ttl,
-        ?int $timeout
+        ?int $timeoutSeconds
     ): BasicResultData {
-        $commandString = $this->getCommandBuilder()->buildCommand($host, $tries, $ttl, $timeout);
+        $commandString = $this->getCommandBuilder()->buildCommand($host, $tries, $ttl, $timeoutSeconds);
         $commandResult = exec($commandString, $output, $resultCode);
 
         if ($commandResult === false) {
